@@ -243,7 +243,7 @@ a {
 
 .book-card__overlay {
   background:
-    linear-gradient(180deg, rgba(7, 18, 30, 0.18), rgba(7, 18, 30, 0.9)),
+    linear-gradient(180deg, rgba(7, 18, 30, 0.08), rgba(7, 18, 30, 0.78)),
     linear-gradient(135deg, rgba(44, 229, 140, 0.08), transparent 35%);
 }
 
@@ -253,6 +253,18 @@ a {
   right: 24px;
   bottom: 24px;
   z-index: 1;
+}
+
+.book-card__mini-title {
+  margin: 0 0 18px;
+  max-width: 8ch;
+  color: var(--white);
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
 }
 
 .book-card h2 {
