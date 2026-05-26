@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carro Elétrico Sem Mistério</title>
+    <style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+  }
+
+  :root {
+    --ink: #132235;
+    --muted: #59697d;
+    --line: #dbe4ea;
+    --navy: #0c2340;
+    --navy-soft: #12365a;
+    --green: #26e57c;
+    --green-soft: #dafbea;
+    --paper: #ffffff;
+    --mist: #f4f8fb;
+    --shadow: rgba(8, 25, 43, 0.14);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background: #e8edf2;
+  }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: var(--paper);
+    font-family: "Segoe UI", "Aptos", Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.62;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cover-page {
+    position: relative;
+    min-height: 277mm;
+    margin: -18mm -16mm 12mm -16mm;
+    overflow: hidden;
+    page-break-after: always;
+    background:
+      linear-gradient(180deg, rgba(8, 22, 40, 0.08), rgba(8, 22, 40, 0.88)),
+      linear-gradient(130deg, rgba(14, 35, 62, 0.85), rgba(7, 17, 32, 0.94));
+  }
+
+  .cover-photo,
+  .cover-overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .cover-photo {
+    background-image: url("cover-background.png");
+    background-size: cover;
+    background-position: center center;
+    transform: scale(1.03);
+    filter: saturate(1.05) contrast(1.05);
+  }
+
+  .cover-overlay {
+    background:
+      radial-gradient(circle at 14% 22%, rgba(38, 229, 124, 0.28), transparent 28%),
+      radial-gradient(circle at 82% 20%, rgba(255, 255, 255, 0.12), transparent 24%),
+      linear-gradient(180deg, rgba(6, 15, 28, 0.18), rgba(6, 15, 28, 0.88));
+  }
+
+  .cover-content {
+    position: absolute;
+    left: 18mm;
+    right: 18mm;
+    top: 26mm;
+    max-width: 132mm;
+    color: white;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 10pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .cover-page h1 {
+    margin: 18px 0 10px;
+    color: white;
+    font-size: 31pt;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .cover-subtitle {
+    margin: 0 0 16px;
+    max-width: 110mm;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 14pt;
+    line-height: 1.42;
+  }
+
+  .cover-summary {
+    max-width: 102mm;
+    margin: 0;
+    padding: 14px 16px;
+    border-left: 3px solid var(--green);
+    background: rgba(8, 20, 36, 0.42);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 10.5pt;
+  }
+
+  .cover-footer {
+    position: absolute;
+    left: 18mm;
+    right: 18mm;
+    bottom: 16mm;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 9.5pt;
+    letter-spacing: 0.03em;
+  }
+
+  .toc {
+    page-break-after: always;
+    margin: 0 0 12mm;
+    padding: 10mm 10mm 8mm;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #f8fbfd, #eef5f9);
+    box-shadow: 0 12px 30px var(--shadow);
+  }
+
+  .toc-title {
+    margin: 0 0 8mm;
+    color: var(--navy);
+    font-size: 22pt;
+    letter-spacing: -0.02em;
+  }
+
+  .toc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    column-gap: 14mm;
+  }
+
+  .toc li {
+    margin: 0 0 8px;
+    break-inside: avoid;
+  }
+
+  .toc a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .toc-level-1 a {
+    font-weight: 700;
+  }
+
+  .toc-level-2 {
+    padding-left: 10px;
+  }
+
+  .content {
+    counter-reset: chapter;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+    break-after: avoid-page;
+    color: var(--navy);
+  }
+
+  h1 {
+    margin: 16mm 0 6mm;
+    padding-top: 4mm;
+    border-top: 2px solid var(--line);
+    font-size: 22pt;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    margin: 10mm 0 4mm;
+    font-size: 15pt;
+    line-height: 1.28;
+  }
+
+  h1[id^="capitulo-"],
+  h1[id^="bonus-"],
+  h1[id="conclusao"],
+  h1[id="checklist-final-antes-de-comprar"],
+  h1[id="referencias-consultadas"] {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  h3 {
+    margin: 7mm 0 3mm;
+    font-size: 12pt;
+    line-height: 1.34;
+  }
+
+  p {
+    margin: 0 0 4mm;
+    orphans: 3;
+    widows: 3;
+  }
+
+  ul {
+    margin: 0 0 4mm 0;
+    padding-left: 5mm;
+  }
+
+  li {
+    margin: 0 0 2.2mm;
+  }
+
+  blockquote {
+    margin: 6mm 0;
+    padding: 5mm 6mm;
+    border-left: 4px solid var(--green);
+    border-radius: 0 14px 14px 0;
+    background: linear-gradient(180deg, #f1fff6, #ebfbf3);
+    color: #113526;
+    font-weight: 600;
+  }
+
+  blockquote p:last-child {
+    margin-bottom: 0;
+  }
+
+  .table-wrap {
+    margin: 5mm 0 7mm;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 10px 22px rgba(7, 21, 35, 0.05);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+  }
+
+  thead th {
+    padding: 10px 12px;
+    text-align: left;
+    background: linear-gradient(180deg, var(--navy-soft), var(--navy));
+    color: white;
+    vertical-align: top;
+  }
+
+  tbody td {
+    padding: 10px 12px;
+    border-top: 1px solid var(--line);
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) td {
+    background: var(--mist);
+  }
+
+  code {
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: #eff5f8;
+    color: var(--navy);
+    font-family: "Consolas", "Cascadia Mono", monospace;
+    font-size: 0.92em;
+  }
+
+  a {
+    color: var(--navy-soft);
+    text-decoration: none;
+  }
+
+  .section-break {
+    border: 0;
+    height: 1px;
+    margin: 7mm 0;
+    background: linear-gradient(90deg, transparent, #d6e0e8, transparent);
+  }
+
+  .fine-print {
+    margin-top: 10mm;
+    padding: 5mm 6mm;
+    border-radius: 14px;
+    background: #f5f8fa;
+    color: var(--muted);
+    font-size: 9pt;
+  }
+</style>
+  </head>
+  <body>
+    
+    <section class="cover-page">
+      <div class="cover-photo"></div>
+      <div class="cover-overlay"></div>
+      <div class="cover-content">
+        <div class="eyebrow">Guia independente</div>
+        <h1>Carro Elétrico Sem Mistério</h1>
+        <p class="cover-subtitle">O guia prático para entender, comprar e usar seu primeiro BYD ou carro eletrificado sem medo de errar.</p>
+        <p class="cover-summary">Tudo o que você precisa saber sobre autonomia, bateria, carregamento, manutenção, economia e escolha do modelo ideal antes de comprar um carro elétrico ou híbrido.</p>
+      </div>
+      <div class="cover-footer">
+        <span>Material educativo</span>
+        <span>Brasil • 2026</span>
+      </div>
+    </section>
+  
+    <section class="toc">
+      <h1 class="toc-title">Sumário</h1>
+      <ul><li class="toc-level-1"><a href="#aviso-importante">Aviso importante</a></li><li class="toc-level-1"><a href="#introducao">Introdução</a></li><li class="toc-level-1"><a href="#capitulo-1-por-que-todo-mundo-esta-falando-de-carros-eletricos">Capítulo 1 — Por que todo mundo está falando de carros elétricos?</a></li><li class="toc-level-2"><a href="#modismo-ou-tendencia-real">Modismo ou tendência real?</a></li><li class="toc-level-2"><a href="#por-que-as-marcas-chinesas-ganharam-espaco">Por que as marcas chinesas ganharam espaço?</a></li><li class="toc-level-2"><a href="#por-que-a-byd-virou-uma-das-marcas-mais-comentadas">Por que a BYD virou uma das marcas mais comentadas?</a></li><li class="toc-level-2"><a href="#o-brasileiro-esta-mudando-a-forma-de-enxergar-esses-carros">O brasileiro está mudando a forma de enxergar esses carros</a></li><li class="toc-level-1"><a href="#capitulo-2-eletrico-hibrido-hibrido-plug-in-e-hibrido-flex-qual-a-diferenca">Capítulo 2 — Elétrico, híbrido, híbrido plug-in e híbrido flex: qual a diferença?</a></li><li class="toc-level-2"><a href="#2-1-carro-100-eletrico">2.1 Carro 100% elétrico</a></li><li class="toc-level-2"><a href="#2-2-hibrido-convencional">2.2 Híbrido convencional</a></li><li class="toc-level-2"><a href="#2-3-hibrido-plug-in">2.3 Híbrido plug-in</a></li><li class="toc-level-2"><a href="#2-4-hibrido-flex">2.4 Híbrido flex</a></li><li class="toc-level-2"><a href="#2-5-tabela-comparativa">2.5 Tabela comparativa</a></li><li class="toc-level-1"><a href="#capitulo-3-como-e-a-rotina-com-um-carro-eletrico">Capítulo 3 — Como é a rotina com um carro elétrico?</a></li><li class="toc-level-2"><a href="#abastecer-nao-e-a-mesma-coisa-que-carregar">Abastecer não é a mesma coisa que carregar</a></li><li class="toc-level-2"><a href="#o-dono-de-eletrico-pensa-em-energia-de-outro-jeito">O dono de elétrico pensa em energia de outro jeito</a></li><li class="toc-level-2"><a href="#carregar-em-casa">Carregar em casa</a></li><li class="toc-level-2"><a href="#carregar-no-trabalho">Carregar no trabalho</a></li><li class="toc-level-2"><a href="#carregar-em-shopping-mercado-estacionamento-ou-eletroposto">Carregar em shopping, mercado, estacionamento ou eletroposto</a></li><li class="toc-level-2"><a href="#o-que-muda-para-quem-roda-pouco">O que muda para quem roda pouco</a></li><li class="toc-level-2"><a href="#o-que-muda-para-quem-roda-muito">O que muda para quem roda muito</a></li><li class="toc-level-2"><a href="#planejamento-evita-dor-de-cabeca">Planejamento evita dor de cabeça</a></li><li class="toc-level-2"><a href="#exemplos-praticos">Exemplos práticos</a></li><li class="toc-level-1"><a href="#capitulo-4-carregamento-sem-complicacao">Capítulo 4 — Carregamento sem complicação</a></li><li class="toc-level-2"><a href="#4-1-tomada-comum">4.1 Tomada comum</a></li><li class="toc-level-2"><a href="#4-2-wallbox">4.2 Wallbox</a></li><li class="toc-level-2"><a href="#4-3-carregamento-publico">4.3 Carregamento público</a></li><li class="toc-level-2"><a href="#4-4-carregamento-rapido">4.4 Carregamento rápido</a></li><li class="toc-level-2"><a href="#4-5-quem-mora-em-apartamento">4.5 Quem mora em apartamento</a></li><li class="toc-level-2"><a href="#checklist-antes-de-instalar-um-carregador">Checklist antes de instalar um carregador</a></li><li class="toc-level-1"><a href="#capitulo-5-autonomia-real-por-que-o-numero-da-propaganda-pode-mudar-na-pratica">Capítulo 5 — Autonomia real: por que o número da propaganda pode mudar na prática?</a></li><li class="toc-level-2"><a href="#autonomia-declarada-x-autonomia-real">Autonomia declarada x autonomia real</a></li><li class="toc-level-2"><a href="#velocidade-faz-diferenca">Velocidade faz diferença</a></li><li class="toc-level-2"><a href="#ar-condicionado-e-conforto-termico">Ar-condicionado e conforto térmico</a></li><li class="toc-level-2"><a href="#peso-no-veiculo">Peso no veículo</a></li><li class="toc-level-2"><a href="#subidas-e-relevo">Subidas e relevo</a></li><li class="toc-level-2"><a href="#temperatura-tambem-influencia">Temperatura também influencia</a></li><li class="toc-level-2"><a href="#pneus-e-calibragem">Pneus e calibragem</a></li><li class="toc-level-2"><a href="#estilo-de-conducao">Estilo de condução</a></li><li class="toc-level-2"><a href="#cidade-x-estrada">Cidade x estrada</a></li><li class="toc-level-1"><a href="#capitulo-6-quanto-custa-rodar-com-um-eletrico">Capítulo 6 — Quanto custa rodar com um elétrico?</a></li><li class="toc-level-2"><a href="#formula-simples-para-carro-a-combustao">Fórmula simples para carro a combustão</a></li><li class="toc-level-2"><a href="#formula-simples-para-carro-eletrico">Fórmula simples para carro elétrico</a></li><li class="toc-level-2"><a href="#tabela-comparativa-ficticia">Tabela comparativa fictícia</a></li><li class="toc-level-2"><a href="#economia-nao-e-so-energia">Economia não é só energia</a></li><li class="toc-level-2"><a href="#como-saber-se-o-eletrico-vale-a-pena-para-voce">Como saber se o elétrico vale a pena para você?</a></li><li class="toc-level-1"><a href="#capitulo-7-bateria-mitos-verdades-e-cuidados">Capítulo 7 — Bateria: mitos, verdades e cuidados</a></li><li class="toc-level-2"><a href="#bateria-de-tracao-x-bateria-12v">Bateria de tração x bateria 12V</a></li><li class="toc-level-2"><a href="#degradacao-natural-existe">Degradação natural existe</a></li><li class="toc-level-2"><a href="#garantia-da-bateria">Garantia da bateria</a></li><li class="toc-level-2"><a href="#cuidados-de-carregamento">Cuidados de carregamento</a></li><li class="toc-level-2"><a href="#evitar-extremos-frequentes-quando-aplicavel">Evitar extremos frequentes, quando aplicável</a></li><li class="toc-level-2"><a href="#chuva-e-lavagem">Chuva e lavagem</a></li><li class="toc-level-2"><a href="#revisao-e-software-atualizado">Revisão e software atualizado</a></li><li class="toc-level-2"><a href="#e-a-bateria-blade-da-byd">E a Bateria Blade da BYD?</a></li><li class="toc-level-2"><a href="#mitos-e-verdades">Mitos e verdades</a></li><li class="toc-level-1"><a href="#capitulo-8-manutencao-o-que-muda-em-relacao-ao-carro-comum">Capítulo 8 — Manutenção: o que muda em relação ao carro comum?</a></li><li class="toc-level-2"><a href="#itens-que-continuam-importantes">Itens que continuam importantes</a></li><li class="toc-level-2"><a href="#freio-pode-durar-mais-mas-nao-e-eterno">Freio pode durar mais, mas não é eterno</a></li><li class="toc-level-2"><a href="#pneus-podem-merecer-atencao-extra">Pneus podem merecer atenção extra</a></li><li class="toc-level-2"><a href="#revisao-continua-sendo-importante">Revisão continua sendo importante</a></li><li class="toc-level-2"><a href="#e-os-hibridos-plug-in">E os híbridos plug-in?</a></li><li class="toc-level-1"><a href="#capitulo-9-seguro-ipva-desvalorizacao-e-revenda">Capítulo 9 — Seguro, IPVA, desvalorização e revenda</a></li><li class="toc-level-2"><a href="#seguro">Seguro</a></li><li class="toc-level-2"><a href="#ipva">IPVA</a></li><li class="toc-level-2"><a href="#desvalorizacao">Desvalorização</a></li><li class="toc-level-2"><a href="#usados-exigem-analise-mais-cuidadosa">Usados exigem análise mais cuidadosa</a></li><li class="toc-level-1"><a href="#capitulo-10-modelos-byd-qual-combina-com-cada-perfil">Capítulo 10 — Modelos BYD: qual combina com cada perfil?</a></li><li class="toc-level-2"><a href="#byd-dolphin-mini">BYD Dolphin Mini</a></li><li class="toc-level-2"><a href="#byd-dolphin">BYD Dolphin</a></li><li class="toc-level-2"><a href="#byd-dolphin-plus">BYD Dolphin Plus</a></li><li class="toc-level-2"><a href="#byd-yuan-pro-yuan-plus">BYD Yuan Pro / Yuan Plus</a></li><li class="toc-level-2"><a href="#byd-song-pro-dm-i-song-plus-dm-i">BYD Song Pro DM-i / Song Plus DM-i</a></li><li class="toc-level-2"><a href="#byd-king-dm-i">BYD King DM-i</a></li><li class="toc-level-2"><a href="#byd-seal">BYD Seal</a></li><li class="toc-level-2"><a href="#tabela-de-perfis">Tabela de perfis</a></li><li class="toc-level-1"><a href="#capitulo-11-eletrico-ou-hibrido-qual-escolher">Capítulo 11 — Elétrico ou híbrido: qual escolher?</a></li><li class="toc-level-2"><a href="#escolha-um-100-eletrico-se">Escolha um 100% elétrico se:</a></li><li class="toc-level-2"><a href="#escolha-um-hibrido-plug-in-se">Escolha um híbrido plug-in se:</a></li><li class="toc-level-2"><a href="#talvez-nao-seja-o-momento-ideal-se">Talvez não seja o momento ideal se:</a></li><li class="toc-level-1"><a href="#capitulo-12-comprar-eletrico-usado-ou-seminovo-cuidados-essenciais">Capítulo 12 — Comprar elétrico usado ou seminovo: cuidados essenciais</a></li><li class="toc-level-2"><a href="#checklist-de-analise">Checklist de análise</a></li><li class="toc-level-2"><a href="#o-que-observar-alem-do-preco">O que observar além do preço</a></li><li class="toc-level-2"><a href="#test-drive-e-indispensavel">Test drive é indispensável</a></li><li class="toc-level-1"><a href="#capitulo-13-checklist-final-antes-de-comprar">Capítulo 13 — Checklist final antes de comprar</a></li><li class="toc-level-1"><a href="#conclusao">Conclusão</a></li><li class="toc-level-1"><a href="#bonus-1-planilha-de-calculo-de-economia">Bônus 1 — Planilha de cálculo de economia</a></li><li class="toc-level-2"><a href="#para-carro-a-combustao">Para carro a combustão</a></li><li class="toc-level-2"><a href="#para-carro-eletrico">Para carro elétrico</a></li><li class="toc-level-2"><a href="#exemplo-de-tabela">Exemplo de tabela</a></li><li class="toc-level-1"><a href="#bonus-2-glossario-do-carro-eletrico">Bônus 2 — Glossário do carro elétrico</a></li><li class="toc-level-2"><a href="#bev">BEV</a></li><li class="toc-level-2"><a href="#hev">HEV</a></li><li class="toc-level-2"><a href="#phev">PHEV</a></li><li class="toc-level-2"><a href="#kwh">kWh</a></li><li class="toc-level-2"><a href="#kw">kW</a></li><li class="toc-level-2"><a href="#wallbox">Wallbox</a></li><li class="toc-level-2"><a href="#autonomia">Autonomia</a></li><li class="toc-level-2"><a href="#regeneracao">Regeneração</a></li><li class="toc-level-2"><a href="#bateria-de-tracao">Bateria de tração</a></li><li class="toc-level-2"><a href="#bateria-12v">Bateria 12V</a></li><li class="toc-level-2"><a href="#carregamento-ac">Carregamento AC</a></li><li class="toc-level-2"><a href="#carregamento-dc">Carregamento DC</a></li><li class="toc-level-2"><a href="#conector">Conector</a></li><li class="toc-level-2"><a href="#eletroposto">Eletroposto</a></li><li class="toc-level-2"><a href="#estado-de-carga">Estado de carga</a></li><li class="toc-level-2"><a href="#degradacao-de-bateria">Degradação de bateria</a></li><li class="toc-level-2"><a href="#torque-instantaneo">Torque instantâneo</a></li><li class="toc-level-2"><a href="#modo-eco">Modo Eco</a></li><li class="toc-level-2"><a href="#frenagem-regenerativa">Frenagem regenerativa</a></li><li class="toc-level-1"><a href="#bonus-3-checklist-imprimivel">Bônus 3 — Checklist imprimível</a></li></ul>
+    </section>
+    <main class="content">
+      <p><strong>Título:</strong> Carro Elétrico Sem Mistério</p>
+<p><strong>Subtítulo:</strong> O guia prático para entender, comprar e usar seu primeiro BYD ou carro eletrificado sem medo de errar.</p>
+<p><strong>Texto curto de capa:</strong> Tudo o que você precisa saber sobre autonomia, bateria, carregamento, manutenção, economia e escolha do modelo ideal antes de comprar um carro elétrico ou híbrido.</p>
+<hr class="section-break">
+<h1 id="aviso-importante">Aviso importante</h1>
+<p>Este é um <strong>guia independente</strong>, criado com finalidade educativa e prática para ajudar o consumidor brasileiro a entender melhor os carros elétricos e eletrificados.</p>
+<p>As informações deste material podem mudar com o tempo. Preços, autonomia, versões, garantias, equipamentos, condições comerciais, política de pós-venda, disponibilidade de peças e regras estaduais podem variar conforme data, cidade, ano/modelo e fabricante.</p>
+<p>Sempre confirme os dados mais sensíveis:</p>
+<ul><li>no site oficial da marca</li><li>no manual do proprietário</li><li>na concessionária</li><li>com seguradora</li><li>com eletricista qualificado, quando o tema envolver instalação elétrica</li></ul>
+<p>Este conteúdo <strong>não substitui</strong>:</p>
+<ul><li>avaliação técnica</li><li>consulta em concessionária</li><li>leitura do manual do proprietário</li><li>análise financeira individual</li></ul>
+<p>Ao longo do e-book, você verá exemplos baseados em <strong>veículos disponíveis no mercado brasileiro</strong>, incluindo <strong>modelos como os da BYD</strong>, mas este material <strong>não é oficial da marca</strong>.</p>
+<hr class="section-break">
+<h1 id="introducao">Introdução</h1>
+<p>Os carros elétricos e híbridos deixaram de ser assunto distante. Eles já estão nas ruas, nos estacionamentos de shopping, nas vagas de condomínio, nas locadoras e, cada vez mais, nas conversas de quem pensa em trocar de carro.</p>
+<p>No Brasil, esse movimento ganhou força por alguns motivos ao mesmo tempo. A oferta de modelos aumentou, a tecnologia ficou mais visível, os preços começaram a atingir novas faixas de mercado e marcas chinesas passaram a disputar espaço com força. Nesse cenário, a BYD virou uma das empresas mais comentadas porque conseguiu colocar vários modelos eletrificados em evidência, do compacto urbano ao SUV e ao sedã.</p>
+<p>Só que junto com o interesse vem a insegurança.</p>
+<p>Muita gente pensa assim:</p>
+<ul><li>"Será que a bateria dura?"</li><li>"Onde eu vou carregar?"</li><li>"E se eu quiser viajar?"</li><li>"Será que a economia é real?"</li><li>"Híbrido é a mesma coisa que elétrico?"</li><li>"Vale mais a pena continuar no flex?"</li></ul>
+<p>Essas dúvidas são normais. O problema não é ter dúvida. O problema é comprar no impulso, guiado só por propaganda, comentário de internet ou opinião de quem nunca usou esse tipo de carro.</p>
+<p>Este guia foi criado justamente para resolver isso.</p>
+<p>Aqui você vai entender, em linguagem simples, o que muda de verdade na vida de quem compra um carro elétrico, um híbrido ou um híbrido plug-in. Vamos falar de custos, autonomia, bateria, recarga, manutenção, rotina e perfil de uso. Também vamos olhar com cuidado para modelos como Dolphin Mini, Dolphin, Yuan Plus, Song Plus DM-i, Song Pro DM-i, King DM-i e Seal, sempre de forma educativa e sem parecer material oficial.</p>
+<p><strong>Ao final deste guia, você deverá entender se um carro elétrico ou híbrido faz sentido para sua rotina, seu bolso e seu perfil de uso.</strong></p>
+<hr class="section-break">
+<h1 id="capitulo-1-por-que-todo-mundo-esta-falando-de-carros-eletricos">Capítulo 1 — Por que todo mundo está falando de carros elétricos?</h1>
+<p>Durante muito tempo, carro elétrico parecia assunto de futuro. Hoje, virou assunto de presente.</p>
+<p>O mercado brasileiro de eletrificados está crescendo porque a combinação entre tecnologia, oferta e curiosidade do consumidor chegou a um ponto de virada. Dados públicos da ABVE mostram que 2025 fechou com <strong>223.912 veículos leves eletrificados vendidos no Brasil</strong>, alta de <strong>26%</strong> sobre 2024. A própria entidade também informou que os eletrificados começaram 2026 mantendo ritmo forte de expansão.</p>
+<p>Isso importa porque mostra que não estamos mais falando de uma moda isolada. Ainda é um mercado em amadurecimento, claro. Mas já existe escala suficiente para mexer com escolha de compra, planejamento de concessionárias, oficinas, seguradoras, infraestrutura de recarga e valor de revenda.</p>
+<h2 id="modismo-ou-tendencia-real">Modismo ou tendência real?</h2>
+<p>Toda novidade no setor automotivo passa por uma fase de empolgação exagerada. Com os elétricos, isso também aconteceu. Só que, no caso deles, existe uma diferença importante: a mudança não depende apenas de marketing.</p>
+<p>Há fatores concretos puxando essa transformação:</p>
+<ul><li>mais modelos disponíveis</li><li>maior visibilidade nas ruas</li><li>tecnologia embarcada mais atraente</li><li>interesse por menor gasto de uso em alguns perfis</li><li>busca por experiência de condução mais silenciosa e suave</li><li>expansão gradual da infraestrutura de recarga</li></ul>
+<p>Então a resposta equilibrada é esta: existe, sim, muito barulho em volta do tema, mas também existe uma tendência real de crescimento.</p>
+<h2 id="por-que-as-marcas-chinesas-ganharam-espaco">Por que as marcas chinesas ganharam espaço?</h2>
+<p>Porque chegaram com velocidade, variedade e forte aposta em eletrificação. Enquanto parte do mercado ainda tratava o elétrico como nicho, fabricantes chinesas avançaram com portfólio mais amplo e mais visível.</p>
+<p>Para o consumidor brasileiro, isso teve um efeito direto: de repente, passou a ser possível comparar opções reais, ver os carros circulando e considerar a compra de um eletrificado com mais naturalidade.</p>
+<h2 id="por-que-a-byd-virou-uma-das-marcas-mais-comentadas">Por que a BYD virou uma das marcas mais comentadas?</h2>
+<p>Porque a marca conseguiu reunir alguns pontos que chamam atenção:</p>
+<ul><li>presença forte em modelos 100% elétricos e híbridos plug-in</li><li>comunicação intensa no mercado brasileiro</li><li>variedade de carrocerias e faixas de preço</li><li>foco em tecnologia de bateria e eletrificação</li><li>ampliação da rede e da visibilidade da marca</li></ul>
+<p>No site oficial da BYD Brasil, em maio de 2026, aparecem modelos como Dolphin Mini, Dolphin, Dolphin Plus, Yuan Pro, Yuan Plus, King DM-i, Song Pro DM-i, Song Plus DM-i e Seal, além de outros veículos fora do foco principal deste guia.</p>
+<p>Isso não significa que a marca seja automaticamente a melhor escolha para todo mundo. Significa apenas que ela se tornou uma referência importante para quem começou a pesquisar eletrificados no Brasil.</p>
+<h2 id="o-brasileiro-esta-mudando-a-forma-de-enxergar-esses-carros">O brasileiro está mudando a forma de enxergar esses carros</h2>
+<p>Antes, a conversa era mais ou menos assim: "bonito, moderno, mas não serve para mim".</p>
+<p>Agora, muita gente já pensa de outro jeito:</p>
+<ul><li>"Talvez sirva para meu uso na cidade."</li><li>"Se eu carregar em casa, pode ficar interessante."</li><li>"Talvez um híbrido plug-in seja uma transição mais segura."</li></ul>
+<p>Essa mudança de percepção é decisiva. O consumidor deixou de olhar apenas para a novidade e começou a avaliar utilidade.</p>
+<blockquote><p>O carro elétrico não é apenas sobre economia. Ele também muda a forma como você pensa abastecimento, manutenção, tecnologia e planejamento de uso.</p></blockquote>
+<hr class="section-break">
+<h1 id="capitulo-2-eletrico-hibrido-hibrido-plug-in-e-hibrido-flex-qual-a-diferenca">Capítulo 2 — Elétrico, híbrido, híbrido plug-in e híbrido flex: qual a diferença?</h1>
+<p>Uma das maiores confusões de quem começa a pesquisar o assunto é achar que todo carro com alguma eletrificação funciona do mesmo jeito. Não funciona.</p>
+<p>Entender essa diferença evita decepção na compra. Muita gente quer um elétrico, mas compra um híbrido pensando que vai rodar sempre sem combustível. Outras pessoas poderiam viver muito bem com um híbrido plug-in, mas descartam a ideia por achar que ele funciona igual a um carro comum.</p>
+<p>Vamos simplificar.</p>
+<h2 id="2-1-carro-100-eletrico">2.1 Carro 100% elétrico</h2>
+<p>O carro 100% elétrico usa apenas motor elétrico e bateria de tração. Ele não usa gasolina, etanol ou diesel para mover o carro.</p>
+<p>Em termos práticos, ele precisa ser carregado:</p>
+<ul><li>na tomada</li><li>em wallbox</li><li>em estação pública de recarga</li></ul>
+<p>É como trocar o posto pela energia elétrica.</p>
+<p>Exemplos de modelos no mercado brasileiro:</p>
+<ul><li>BYD Dolphin Mini</li><li>BYD Dolphin</li><li>BYD Dolphin Plus</li><li>BYD Yuan Plus</li><li>BYD Yuan Pro</li><li>BYD Seal</li></ul>
+<p>Pontos fortes mais comuns:</p>
+<ul><li>condução silenciosa</li><li>resposta rápida ao acelerar</li><li>menor custo de uso em muitos cenários urbanos</li><li>menos itens ligados ao motor a combustão</li></ul>
+<p>Ponto de atenção:</p>
+<ul><li>depende de planejamento de recarga</li></ul>
+<h2 id="2-2-hibrido-convencional">2.2 Híbrido convencional</h2>
+<p>O híbrido convencional combina motor a combustão com motor elétrico, mas normalmente <strong>não precisa ser carregado na tomada</strong>.</p>
+<p>Nesse tipo de carro, a bateria menor é recarregada pelo próprio sistema do veículo, com ajuda do motor a combustão e da recuperação de energia em desaceleração e frenagem.</p>
+<p>Ele costuma ser interessante para quem quer:</p>
+<ul><li>melhorar consumo</li><li>reduzir parte do esforço do motor a combustão</li><li>mudar pouco a rotina</li></ul>
+<p>Em compensação, ele não entrega a mesma experiência de uso elétrico puro de um BEV nem a mesma flexibilidade elétrica de um híbrido plug-in.</p>
+<h2 id="2-3-hibrido-plug-in">2.3 Híbrido plug-in</h2>
+<p>O híbrido plug-in, também chamado de PHEV, combina motor a combustão com uma bateria maior, que pode ser carregada na tomada.</p>
+<p>Na prática, ele pode rodar uma parte do uso diário em modo elétrico, dependendo do modelo, da carga disponível e da situação de condução. Quando a bateria baixa ou quando a estratégia do sistema pede, o motor a combustão entra em cena.</p>
+<p>Exemplos:</p>
+<ul><li>BYD Song Plus DM-i</li><li>BYD Song Pro DM-i</li><li>BYD King DM-i</li></ul>
+<p>Essa categoria costuma agradar quem:</p>
+<ul><li>quer economia urbana</li><li>faz viagens com mais frequência</li><li>ainda não quer depender 100% de infraestrutura de recarga</li><li>prefere uma transição mais gradual</li></ul>
+<h2 id="2-4-hibrido-flex">2.4 Híbrido flex</h2>
+<p>Híbrido flex é o veículo que combina eletrificação com possibilidade de uso de etanol e gasolina, dependendo do projeto do fabricante.</p>
+<p>No Brasil, essa categoria faz sentido porque o etanol tem papel importante na matriz de combustíveis e no bolso do consumidor. Mas é importante não colocar tudo no mesmo pacote. Um híbrido flex pode ter estratégia e nível de eletrificação bem diferentes de outro.</p>
+<p>Por isso, o ideal é sempre verificar:</p>
+<ul><li>como o sistema funciona</li><li>se há recarga externa ou não</li><li>qual o papel do motor elétrico</li><li>qual o perfil real de uso para o qual o carro foi pensado</li></ul>
+<h2 id="2-5-tabela-comparativa">2.5 Tabela comparativa</h2>
+<div class="table-wrap"><table><thead><tr><th>Tipo de veículo</th><th>Usa combustível?</th><th>Carrega na tomada?</th><th>Melhor para quem?</th><th>Ponto de atenção</th></tr></thead><tbody><tr><td>100% elétrico (BEV)</td><td>Não</td><td>Sim</td><td>Quem roda mais na cidade e tem onde carregar</td><td>Exige planejamento de recarga</td></tr><tr><td>Híbrido convencional (HEV)</td><td>Sim</td><td>Normalmente não</td><td>Quem quer economizar sem mudar muito a rotina</td><td>Roda menos tempo em modo elétrico</td></tr><tr><td>Híbrido plug-in (PHEV)</td><td>Sim</td><td>Sim</td><td>Quem quer combinar uso elétrico urbano com flexibilidade em viagens</td><td>Faz mais sentido quando é carregado com frequência</td></tr><tr><td>Híbrido flex (HEV Flex ou PHEV Flex, conforme o projeto)</td><td>Sim</td><td>Depende da tecnologia</td><td>Quem quer eletrificação com uso de etanol/gasolina</td><td>É preciso entender exatamente qual sistema o carro usa</td></tr></tbody></table></div>
+<hr class="section-break">
+<h1 id="capitulo-3-como-e-a-rotina-com-um-carro-eletrico">Capítulo 3 — Como é a rotina com um carro elétrico?</h1>
+<p>O maior erro de quem está começando a pesquisar o tema é imaginar que a rotina com um carro elétrico é igual à de um carro a combustão, só que "mais moderno". Não é.</p>
+<p>Ela muda, mas não necessariamente para pior. Apenas muda a lógica.</p>
+<h2 id="abastecer-nao-e-a-mesma-coisa-que-carregar">Abastecer não é a mesma coisa que carregar</h2>
+<p>Com carro a combustão, o pensamento é simples: esperar o tanque baixar e ir ao posto.</p>
+<p>Com elétrico, o pensamento costuma ser outro: aproveitar janelas de parada para recuperar energia.</p>
+<p>Isso significa que muitos donos não esperam a bateria chegar perto de zero. Eles carregam:</p>
+<ul><li>durante a noite em casa</li><li>no trabalho</li><li>em estações públicas enquanto fazem outras atividades</li></ul>
+<p>Em vez de pensar em "encher o tanque de uma vez", a pessoa passa a pensar em "manter o carro abastecido de energia ao longo da rotina".</p>
+<h2 id="o-dono-de-eletrico-pensa-em-energia-de-outro-jeito">O dono de elétrico pensa em energia de outro jeito</h2>
+<p>No começo, parece estranho. Depois, para muita gente, vira algo natural.</p>
+<p>É parecido com o celular. Você não espera o aparelho desligar todo dia para então procurar tomada. Em muitos casos, o hábito é recarregar nos momentos convenientes. Com o carro, a lógica pode ser parecida, respeitando os limites de tempo, potência e infraestrutura.</p>
+<h2 id="carregar-em-casa">Carregar em casa</h2>
+<p>Para quem mora em casa e tem instalação adequada, essa costuma ser a experiência mais simples.</p>
+<p>Você chega, conecta, deixa carregando e encontra o carro com energia no dia seguinte. Isso elimina muitas visitas a postos e pode tornar o uso diário bem confortável.</p>
+<h2 id="carregar-no-trabalho">Carregar no trabalho</h2>
+<p>Se o local de trabalho oferece recarga, isso pode mudar completamente a conta e a praticidade do uso. Mesmo uma recarga parcial ao longo do expediente já pode cobrir boa parte do trajeto diário de muita gente.</p>
+<h2 id="carregar-em-shopping-mercado-estacionamento-ou-eletroposto">Carregar em shopping, mercado, estacionamento ou eletroposto</h2>
+<p>Essas recargas funcionam bem como complemento, conveniência ou apoio em deslocamentos maiores. O problema começa quando a pessoa depende exclusivamente disso sem planejamento.</p>
+<p>Quem compra elétrico contando apenas com recarga pública precisa avaliar com frieza:</p>
+<ul><li>distância das estações</li><li>disponibilidade real</li><li>fila ou ocupação</li><li>custo da recarga</li><li>compatibilidade de conector</li><li>tempo que o carro ficará parado</li></ul>
+<h2 id="o-que-muda-para-quem-roda-pouco">O que muda para quem roda pouco</h2>
+<p>Quem roda pouco por dia pode ter uma experiência muito tranquila com elétrico, especialmente se conseguir carregar em casa ou no trabalho.</p>
+<h2 id="o-que-muda-para-quem-roda-muito">O que muda para quem roda muito</h2>
+<p>Quem roda bastante precisa fazer conta com mais cuidado.</p>
+<p>Não basta olhar autonomia de catálogo. É preciso considerar:</p>
+<ul><li>quantos quilômetros percorre por dia</li><li>onde poderá recarregar</li><li>quanto tempo o carro pode ficar parado</li><li>se há uso intenso em estrada</li></ul>
+<h2 id="planejamento-evita-dor-de-cabeca">Planejamento evita dor de cabeça</h2>
+<p>O elétrico costuma premiar quem se organiza minimamente. Não precisa viver em função da bateria, mas também não dá para usar como se toda esquina fosse um posto com abastecimento em cinco minutos.</p>
+<h2 id="exemplos-praticos">Exemplos práticos</h2>
+<h3 id="pessoa-que-roda-20-km-por-dia">Pessoa que roda 20 km por dia</h3>
+<p>Esse perfil costuma se adaptar muito bem a um carro 100% elétrico, desde que exista forma de recarga previsível. Com uso leve, a ansiedade com autonomia tende a cair rápido.</p>
+<h3 id="pessoa-que-roda-60-km-por-dia">Pessoa que roda 60 km por dia</h3>
+<p>Ainda pode ser um ótimo cenário para elétrico, mas já vale observar potência de recarga, rotina doméstica e margem de segurança. Se a pessoa não tiver como carregar com regularidade, a praticidade cai.</p>
+<h3 id="pessoa-que-usa-o-carro-para-trabalho">Pessoa que usa o carro para trabalho</h3>
+<p>Aqui o raciocínio precisa ser mais profissional. Motorista de aplicativo, representante comercial ou qualquer pessoa que dependa do carro o dia todo precisa olhar:</p>
+<ul><li>custo por km</li><li>disponibilidade de recarga</li><li>tempo parado</li><li>previsibilidade da rota</li><li>plano B em dias mais puxados</li></ul>
+<h3 id="pessoa-que-viaja-aos-finais-de-semana">Pessoa que viaja aos finais de semana</h3>
+<p>Pode ser viável ter elétrico, sim. Mas a experiência vai depender da malha de recarga no trajeto, do perfil da viagem e do apetite do motorista para planejar paradas. Em muitos casos, um híbrido plug-in atende melhor quem quer menos mudança de hábito.</p>
+<hr class="section-break">
+<h1 id="capitulo-4-carregamento-sem-complicacao">Capítulo 4 — Carregamento sem complicação</h1>
+<p>Recarga é um dos temas que mais assustam quem está pensando no primeiro eletrificado. A boa notícia é que não precisa virar especialista em engenharia elétrica para entender o básico. A má notícia é que também não dá para tratar isso de forma improvisada.</p>
+<h2 id="4-1-tomada-comum">4.1 Tomada comum</h2>
+<p>Em alguns casos, o veículo pode ser carregado em tomada compatível com o equipamento fornecido e com instalação adequada. Mas este ponto exige cuidado.</p>
+<p>O fato de "encaixar na tomada" não significa que qualquer instalação seja ideal para uso frequente.</p>
+<p>Antes de adotar essa solução, vale avaliar:</p>
+<ul><li>qualidade da rede elétrica</li><li>aterramento</li><li>disjuntor</li><li>bitola dos cabos</li><li>estado da tomada</li><li>tempo de uso contínuo</li></ul>
+<p>O melhor caminho é consultar <strong>profissional qualificado</strong>. Segurança vem antes da pressa.</p>
+<h2 id="4-2-wallbox">4.2 Wallbox</h2>
+<p>Wallbox é um carregador dedicado, normalmente instalado em casa ou empresa, pensado para tornar a recarga mais prática, previsível e segura.</p>
+<p>Em muitos cenários, ele faz sentido porque:</p>
+<ul><li>organiza melhor a recarga</li><li>pode oferecer mais comodidade</li><li>tende a ser mais adequado para uso frequente</li><li>pode melhorar a gestão do tempo de carga</li></ul>
+<p>Nem todo comprador precisa instalar wallbox imediatamente. Mas, para quem vai ficar com o carro por mais tempo e tem vaga própria, costuma ser uma solução muito considerada.</p>
+<h2 id="4-3-carregamento-publico">4.3 Carregamento público</h2>
+<p>As estações públicas cresceram, mas a experiência ainda varia bastante conforme região.</p>
+<p>Na prática, você pode precisar lidar com:</p>
+<ul><li>aplicativos diferentes</li><li>cadastro</li><li>formas de pagamento</li><li>tipos de conector</li><li>tempo de espera</li><li>estação ocupada ou indisponível</li></ul>
+<p>Por isso, o uso de recarga pública costuma funcionar melhor quando entra como reforço, não como aposta no escuro.</p>
+<h2 id="4-4-carregamento-rapido">4.4 Carregamento rápido</h2>
+<p>A recarga rápida é muito útil em viagens, deslocamentos longos e situações de emergência. Ela pode reduzir bastante o tempo parado em comparação com recargas AC mais lentas.</p>
+<p>Mas é importante entender duas coisas:</p>
+<p>Primeiro: a velocidade real depende do carro, da estação, da temperatura, do nível de carga e do gerenciamento do sistema.</p>
+<p>Segundo: usar recarga rápida não significa automaticamente problema. O ponto correto é seguir as orientações do fabricante e encaixar esse recurso dentro da rotina de forma inteligente.</p>
+<h2 id="4-5-quem-mora-em-apartamento">4.5 Quem mora em apartamento</h2>
+<p>Aqui a análise precisa ser mais cuidadosa, mas não é motivo automático para desistir.</p>
+<p>Quem mora em condomínio deve observar:</p>
+<ul><li>existência de vaga fixa</li><li>possibilidade de passagem de infraestrutura</li><li>autorização e regras internas</li><li>medição individual de consumo</li><li>avaliação técnica da rede elétrica</li><li>responsabilidade por instalação e manutenção</li></ul>
+<p>Em maio de 2026, a ABVE destacava a importância de regras mais claras sobre direito à recarga em edifícios, mostrando como esse tema está ficando cada vez mais relevante no Brasil.</p>
+<h2 id="checklist-antes-de-instalar-um-carregador">Checklist antes de instalar um carregador</h2>
+<ul><li>Tenho vaga fixa?</li><li>A garagem permite instalação?</li><li>O condomínio autoriza?</li><li>A rede elétrica suporta?</li><li>Haverá medição individual?</li><li>O serviço será feito por eletricista qualificado?</li><li>O carregador é compatível com meu veículo?</li><li>A instalação segue normas de segurança?</li></ul>
+<hr class="section-break">
+<h1 id="capitulo-5-autonomia-real-por-que-o-numero-da-propaganda-pode-mudar-na-pratica">Capítulo 5 — Autonomia real: por que o número da propaganda pode mudar na prática?</h1>
+<p>Autonomia é o tema que mais vende carro elétrico e, ao mesmo tempo, o que mais gera frustração quando é mal interpretado.</p>
+<p>O número divulgado pela marca é uma referência útil, mas não é promessa de que você sempre verá exatamente aquela quilometragem no painel.</p>
+<h2 id="autonomia-declarada-x-autonomia-real">Autonomia declarada x autonomia real</h2>
+<p>A autonomia declarada segue critérios técnicos de medição. Ela ajuda a comparar veículos, mas a vida real é outra história.</p>
+<p>Na prática, o resultado muda conforme:</p>
+<ul><li>velocidade</li><li>trânsito</li><li>ar-condicionado</li><li>peso no carro</li><li>relevo</li><li>temperatura</li><li>calibragem dos pneus</li><li>forma de dirigir</li></ul>
+<h2 id="velocidade-faz-diferenca">Velocidade faz diferença</h2>
+<p>Em carro elétrico, estrada rápida costuma exigir mais energia. Isso acontece porque manter velocidade elevada por longos períodos aumenta o esforço aerodinâmico e o consumo.</p>
+<h2 id="ar-condicionado-e-conforto-termico">Ar-condicionado e conforto térmico</h2>
+<p>Climatização consome energia. Dependendo do carro, da temperatura externa e do tempo de uso, isso pode afetar a autonomia percebida.</p>
+<h2 id="peso-no-veiculo">Peso no veículo</h2>
+<p>Mais passageiros, bagagem e carga significam mais esforço. Em uso familiar de viagem, isso entra na conta.</p>
+<h2 id="subidas-e-relevo">Subidas e relevo</h2>
+<p>Subidas longas elevam consumo. Em compensação, o carro pode recuperar parte da energia em descidas por regeneração, mas isso não "zera a conta". O saldo final depende do percurso.</p>
+<h2 id="temperatura-tambem-influencia">Temperatura também influencia</h2>
+<p>Clima muito frio ou muito quente pode mexer com o desempenho da bateria e com a necessidade de climatização. No Brasil, isso tende a ser menos extremo do que em países gelados, mas ainda assim influencia.</p>
+<h2 id="pneus-e-calibragem">Pneus e calibragem</h2>
+<p>Pneu descalibrado aumenta resistência ao rolamento. Parece detalhe pequeno, mas detalhe pequeno repetido todo dia pesa.</p>
+<h2 id="estilo-de-conducao">Estilo de condução</h2>
+<p>Acelerações fortes e condução agressiva costumam consumir mais energia. Já uma condução mais fluida tende a melhorar eficiência.</p>
+<h2 id="cidade-x-estrada">Cidade x estrada</h2>
+<p>Esse é um ponto importante: carro elétrico costuma ser muito eficiente na cidade, onde pode aproveitar frenagem regenerativa e velocidades mais baixas. Em estrada, principalmente em ritmo mais alto, a autonomia tende a cair.</p>
+<blockquote><p>Autonomia não é um número fixo. É uma estimativa que muda conforme o uso.</p></blockquote>
+<hr class="section-break">
+<h1 id="capitulo-6-quanto-custa-rodar-com-um-eletrico">Capítulo 6 — Quanto custa rodar com um elétrico?</h1>
+<p>Muita gente se interessa por eletrificados por causa da economia. Isso faz sentido, mas precisa ser tratado com maturidade.</p>
+<p>Não existe um número mágico que sirva para todo mundo. A conta depende da sua tarifa de energia, do seu consumo atual de combustível, da quilometragem mensal e da forma de uso do carro.</p>
+<h2 id="formula-simples-para-carro-a-combustao">Fórmula simples para carro a combustão</h2>
+<p><strong>Custo por km = preço do combustível ÷ consumo em km/l</strong></p>
+<p>Exemplo ilustrativo:</p>
+<p>Se a gasolina custa <strong>R$ 6,00</strong> e o carro faz <strong>10 km/l</strong>:</p>
+<p><strong>R$ 6,00 ÷ 10 = R$ 0,60 por km</strong></p>
+<h2 id="formula-simples-para-carro-eletrico">Fórmula simples para carro elétrico</h2>
+<p><strong>Custo por km = preço do kWh x consumo em kWh/km</strong></p>
+<p>Ou:</p>
+<p><strong>Custo da recarga ÷ km rodados</strong></p>
+<p>Exemplo ilustrativo:</p>
+<p>Se a energia custa <strong>R$ 1,00 por kWh</strong> e o carro consome <strong>15 kWh a cada 100 km</strong>, então o consumo é <strong>0,15 kWh por km</strong>.</p>
+<p><strong>R$ 1,00 x 0,15 = R$ 0,15 por km</strong></p>
+<p>Perceba que estes valores são apenas didáticos. A tarifa real da sua cidade, da sua distribuidora, da sua faixa de consumo e do horário de uso pode mudar bastante.</p>
+<h2 id="tabela-comparativa-ficticia">Tabela comparativa fictícia</h2>
+<div class="table-wrap"><table><thead><tr><th>Cenário</th><th>Conta usada</th><th>Resultado por km</th></tr></thead><tbody><tr><td>Carro a gasolina</td><td>R$ 6,00 ÷ 10 km/l</td><td>R$ 0,60</td></tr><tr><td>Carro a etanol</td><td>R$ 4,20 ÷ 7 km/l</td><td>R$ 0,60</td></tr><tr><td>Elétrico em recarga residencial</td><td>R$ 1,00 x 0,15 kWh/km</td><td>R$ 0,15</td></tr><tr><td>Elétrico em recarga pública paga</td><td>R$ 1,80 x 0,15 kWh/km</td><td>R$ 0,27</td></tr></tbody></table></div>
+<p>Esses números mostram uma lógica importante: a vantagem econômica do elétrico pode existir, mas varia conforme o custo da energia e o tipo de recarga.</p>
+<h2 id="economia-nao-e-so-energia">Economia não é só energia</h2>
+<p>Ao comparar custos, considere também:</p>
+<ul><li>seguro</li><li>manutenção</li><li>depreciação</li><li>acessórios de recarga</li><li>eventual instalação elétrica</li><li>valor de compra</li></ul>
+<p>Um carro pode ser mais barato para rodar, mas não necessariamente mais barato no custo total de posse.</p>
+<h2 id="como-saber-se-o-eletrico-vale-a-pena-para-voce">Como saber se o elétrico vale a pena para você?</h2>
+<p>Faça estas perguntas:</p>
+<ul><li>Quantos km você roda por mês?</li><li>Quanto você gasta hoje com combustível?</li><li>Quanto custa o kWh na sua cidade?</li><li>Você consegue carregar em casa?</li><li>Você pretende viajar muito?</li><li>O seguro fica dentro do orçamento?</li><li>O preço de compra cabe no seu planejamento?</li></ul>
+<p>Se você rodar pouco, talvez a economia mensal não seja tão impressionante a ponto de justificar qualquer preço de entrada. Se você rodar muito e puder recarregar bem, a conta pode ficar bem mais interessante.</p>
+<hr class="section-break">
+<h1 id="capitulo-7-bateria-mitos-verdades-e-cuidados">Capítulo 7 — Bateria: mitos, verdades e cuidados</h1>
+<p>Bateria é o coração do carro elétrico. Também é o assunto que mais gera medo.</p>
+<p>Parte desse medo vem da novidade. Parte vem de informação confusa. E parte vem do fato de que a bateria, sim, é um componente caro e central, então merece atenção séria.</p>
+<h2 id="bateria-de-tracao-x-bateria-12v">Bateria de tração x bateria 12V</h2>
+<p>O primeiro ponto é separar dois itens diferentes:</p>
+<ul><li><strong>bateria de tração</strong>: é a bateria principal que move o carro eletrificado</li><li><strong>bateria 12V</strong>: é a bateria auxiliar usada em vários sistemas, como acontece também em carros convencionais</li></ul>
+<p>Muita gente fala "a bateria do elétrico" como se tudo fosse uma coisa só. Não é.</p>
+<h2 id="degradacao-natural-existe">Degradação natural existe</h2>
+<p>Toda bateria sofre desgaste ao longo do tempo e do uso. Isso vale para celular, notebook e carro. A diferença é que, no automóvel, o sistema é muito mais sofisticado e projetado para gerenciamento térmico, proteção e durabilidade.</p>
+<p>O importante é entender:</p>
+<ul><li>degradação costuma ser gradual</li><li>não significa que a bateria "morre de um dia para o outro"</li><li>intensidade da perda depende de uso, clima, carregamento e projeto do veículo</li></ul>
+<h2 id="garantia-da-bateria">Garantia da bateria</h2>
+<p>Garantia é um ponto obrigatório na sua análise. As regras podem variar por fabricante, modelo, ano e contrato. Por isso, nunca compre um eletrificado sem confirmar:</p>
+<ul><li>prazo</li><li>cobertura</li><li>condições</li><li>exigências de revisão</li></ul>
+<h2 id="cuidados-de-carregamento">Cuidados de carregamento</h2>
+<p>O básico costuma ser:</p>
+<ul><li>seguir o manual do fabricante</li><li>usar equipamentos compatíveis</li><li>evitar improvisos elétricos</li><li>observar orientações sobre rotina de carga</li><li>não ignorar alertas do carro</li></ul>
+<h2 id="evitar-extremos-frequentes-quando-aplicavel">Evitar extremos frequentes, quando aplicável</h2>
+<p>Dependendo da recomendação do fabricante e do tipo de uso, manter a bateria frequentemente em extremos de carga pode não ser a estratégia ideal para rotina diária. Esse ponto varia por projeto e sistema de gerenciamento, então o manual sempre prevalece.</p>
+<h2 id="chuva-e-lavagem">Chuva e lavagem</h2>
+<p>Carros elétricos são projetados para uso real, inclusive com chuva. O importante é respeitar os limites normais de qualquer veículo e seguir instruções do fabricante sobre recarga, conectores e procedimentos corretos.</p>
+<h2 id="revisao-e-software-atualizado">Revisão e software atualizado</h2>
+<p>Em carro eletrificado, software não é detalhe cosmético. Atualização pode influenciar gerenciamento de sistemas, interface, eficiência, diagnóstico e comportamento do carro.</p>
+<h2 id="e-a-bateria-blade-da-byd">E a Bateria Blade da BYD?</h2>
+<p>A BYD destaca em seus materiais institucionais a tecnologia <strong>Bateria Blade</strong>, baseada em química LFP, com foco em segurança, durabilidade e melhor aproveitamento de espaço. Como referência prática, vale entender isso como uma proposta tecnológica relevante, mas sem tratar a solução como mágica ou infalível. O comprador deve olhar o conjunto do veículo, a garantia e o suporte.</p>
+<h2 id="mitos-e-verdades">Mitos e verdades</h2>
+<h3 id="carro-eletrico-nao-pode-pegar-chuva">"Carro elétrico não pode pegar chuva."</h3>
+<p>Mito. Veículos elétricos são desenvolvidos para uso normal em chuva. O que continua valendo é o cuidado comum com enchentes, alagamentos severos e uso fora da condição prevista, algo que também afeta carros a combustão.</p>
+<h3 id="a-bateria-acaba-de-uma-vez">"A bateria acaba de uma vez."</h3>
+<p>Mito. O comportamento normal é de desgaste gradual ao longo do tempo, não de colapso instantâneo no uso comum.</p>
+<h3 id="todo-carregamento-rapido-estraga-a-bateria">"Todo carregamento rápido estraga a bateria."</h3>
+<p>Exagero. Carregamento rápido é um recurso previsto no uso de muitos veículos. O ponto é não transformar boato em regra absoluta nem ignorar o manual do fabricante.</p>
+<h3 id="quando-a-bateria-acabar-o-carro-vira-sucata">"Quando a bateria acabar, o carro vira sucata."</h3>
+<p>Mito. Primeiro, porque existe vida útil longa em muitos casos. Segundo, porque o tema envolve manutenção, diagnóstico, garantia e eventual reparo ou substituição, não uma sentença automática de descarte.</p>
+<h3 id="eletrico-nao-tem-manutencao">"Elétrico não tem manutenção."</h3>
+<p>Mito. Ele tende a ter menos itens ligados ao motor a combustão, mas continua exigindo inspeções, revisões e cuidados.</p>
+<hr class="section-break">
+<h1 id="capitulo-8-manutencao-o-que-muda-em-relacao-ao-carro-comum">Capítulo 8 — Manutenção: o que muda em relação ao carro comum?</h1>
+<p>Aqui existe outro erro comum: achar que o carro elétrico não dá manutenção nenhuma. Isso não é verdade.</p>
+<p>O que muda é o tipo de manutenção.</p>
+<p>Como o elétrico não tem vários componentes tradicionais do motor a combustão, parte das rotinas muda ou deixa de existir. Mas o carro continua sendo carro. Ele ainda tem pneus, freios, suspensão, sistema de ar-condicionado, eletrônica embarcada, vedação, fluídos específicos e itens de desgaste.</p>
+<h2 id="itens-que-continuam-importantes">Itens que continuam importantes</h2>
+<ul><li>Pneus</li><li>Freios</li><li>Suspensão</li><li>Alinhamento</li><li>Balanceamento</li><li>Filtro de cabine</li><li>Sistema de ar-condicionado</li><li>Fluido de freio</li><li>Bateria 12V</li><li>Atualizações de software</li><li>Revisões periódicas</li></ul>
+<h2 id="freio-pode-durar-mais-mas-nao-e-eterno">Freio pode durar mais, mas não é eterno</h2>
+<p>Por causa da frenagem regenerativa, muitos elétricos usam menos o freio convencional em determinadas situações. Isso pode ajudar na durabilidade de alguns componentes, mas não elimina inspeção.</p>
+<h2 id="pneus-podem-merecer-atencao-extra">Pneus podem merecer atenção extra</h2>
+<p>Dependendo do carro, o torque instantâneo e o peso podem exigir atenção especial ao desgaste e à calibragem.</p>
+<h2 id="revisao-continua-sendo-importante">Revisão continua sendo importante</h2>
+<p>Mesmo quem acha que "não tem muito o que revisar" não deve abandonar o cronograma previsto pelo fabricante. Isso vale para garantia, segurança e saúde do veículo.</p>
+<h2 id="e-os-hibridos-plug-in">E os híbridos plug-in?</h2>
+<p>Nos híbridos plug-in, o raciocínio muda porque eles combinam:</p>
+<ul><li>sistema elétrico</li><li>bateria de tração</li><li>motor a combustão</li></ul>
+<p>Ou seja, não devem ser tratados como se fossem 100% elétricos. Eles podem exigir atenção tanto ao conjunto eletrificado quanto aos elementos tradicionais do motor térmico.</p>
+<p>Na prática, o comprador de um PHEV precisa pensar com mais amplitude:</p>
+<ul><li>manutenção do sistema elétrico</li><li>manutenção do motor a combustão</li><li>revisão do sistema híbrido</li><li>uso adequado da recarga para aproveitar o projeto do carro</li></ul>
+<hr class="section-break">
+<h1 id="capitulo-9-seguro-ipva-desvalorizacao-e-revenda">Capítulo 9 — Seguro, IPVA, desvalorização e revenda</h1>
+<p>Muita compra aparentemente boa fica ruim porque a pessoa olha só para o consumo e esquece o resto.</p>
+<h2 id="seguro">Seguro</h2>
+<p>Seguro pode variar muito. Não existe atalho aqui.</p>
+<p>O preço depende de fatores como:</p>
+<ul><li>região</li><li>perfil do motorista</li><li>histórico de sinistro</li><li>custo de peças</li><li>rede de atendimento</li><li>índice de roubo</li><li>estratégia da seguradora para aquele modelo</li></ul>
+<p>Por isso, simular antes de comprar não é detalhe. É parte da decisão.</p>
+<h2 id="ipva">IPVA</h2>
+<p>IPVA depende do estado. Alguns estados podem oferecer benefícios, alíquotas diferentes ou incentivos para determinados tipos de eletrificados. Outros podem não oferecer vantagem relevante.</p>
+<p>Como regra prática: nunca use informação antiga de internet como se fosse atual. Consulte a regra do seu estado no momento da compra.</p>
+<h2 id="desvalorizacao">Desvalorização</h2>
+<p>Revenda de elétricos e híbridos ainda está amadurecendo no Brasil. Isso significa que o comportamento do mercado usado pode mudar mais rápido do que em categorias tradicionais.</p>
+<p>Fatores que influenciam:</p>
+<ul><li>reputação do modelo</li><li>velocidade de chegada de novas versões</li><li>oferta de seminovos</li><li>confiança na marca</li><li>percepção sobre bateria</li><li>rede de assistência</li></ul>
+<h2 id="usados-exigem-analise-mais-cuidadosa">Usados exigem análise mais cuidadosa</h2>
+<p>Em eletrificados, procedência é ainda mais importante. Preço aparentemente atraente pode esconder:</p>
+<ul><li>histórico de manutenção ruim</li><li>ausência de revisões</li><li>garantia comprometida</li><li>uso inadequado da infraestrutura de recarga</li><li>reparos mal executados</li></ul>
+<p><strong>Antes de comprar, simule seguro, pesquise IPVA no seu estado e veja o comportamento do modelo no mercado de usados.</strong></p>
+<hr class="section-break">
+<h1 id="capitulo-10-modelos-byd-qual-combina-com-cada-perfil">Capítulo 10 — Modelos BYD: qual combina com cada perfil?</h1>
+<p>Esta seção é uma <strong>referência prática</strong>, não um catálogo oficial. A linha disponível, as versões, os equipamentos, os preços e as especificações podem mudar. Use esta análise como ponto de partida para entender perfil de uso.</p>
+<h2 id="byd-dolphin-mini">BYD Dolphin Mini</h2>
+<p><strong>Perfil:</strong></p>
+<ul><li>uso urbano</li><li>primeiro elétrico</li><li>quem busca economia e praticidade</li></ul>
+<p><strong>Pontos de atenção:</strong></p>
+<ul><li>espaço interno conforme a necessidade da família</li><li>autonomia para viagens</li><li>necessidade de recarga alinhada à rotina</li></ul>
+<h2 id="byd-dolphin">BYD Dolphin</h2>
+<p><strong>Perfil:</strong></p>
+<ul><li>uso urbano e familiar leve</li><li>quem quer mais espaço que um compacto pequeno</li></ul>
+<p>É o tipo de carro que costuma interessar quem quer um elétrico para a rotina principal, mas sem partir para um SUV.</p>
+<h2 id="byd-dolphin-plus">BYD Dolphin Plus</h2>
+<p><strong>Perfil:</strong></p>
+<ul><li>quem busca mais desempenho e equipamentos</li></ul>
+<p>Faz mais sentido para o comprador que valoriza resposta mais forte, pacote mais completo e experiência mais refinada dentro da proposta hatch.</p>
+<h2 id="byd-yuan-pro-yuan-plus">BYD Yuan Pro / Yuan Plus</h2>
+<p><strong>Perfil:</strong></p>
+<ul><li>quem prefere SUV</li><li>família</li><li>mais espaço e posição elevada de dirigir</li></ul>
+<p>Esses modelos tendem a chamar atenção de quem quer migrar para elétrico sem abrir mão da sensação de utilidade e versatilidade típica dos SUVs.</p>
+<h2 id="byd-song-pro-dm-i-song-plus-dm-i">BYD Song Pro DM-i / Song Plus DM-i</h2>
+<p><strong>Perfil:</strong></p>
+<ul><li>quem quer economia elétrica na cidade, mas ainda deseja motor a combustão para viagens</li><li>quem tem medo de depender 100% de carregamento</li></ul>
+<p>São escolhas que costumam fazer sentido para quem quer entrar no universo da eletrificação com menos ansiedade de autonomia.</p>
+<h2 id="byd-king-dm-i">BYD King DM-i</h2>
+<p><strong>Perfil:</strong></p>
+<ul><li>quem busca sedã híbrido plug-in</li><li>uso urbano e rodoviário</li></ul>
+<p>Pode interessar quem gosta da proposta de sedã, quer rodar parte do tempo em modo elétrico e deseja manter flexibilidade para trechos maiores.</p>
+<h2 id="byd-seal">BYD Seal</h2>
+<p><strong>Perfil:</strong></p>
+<ul><li>quem busca desempenho, tecnologia e proposta mais premium</li></ul>
+<p>Aqui o apelo normalmente vai além da economia. Entram também design, performance e experiência mais sofisticada.</p>
+<h2 id="tabela-de-perfis">Tabela de perfis</h2>
+<div class="table-wrap"><table><thead><tr><th>Modelo</th><th>Tipo</th><th>Perfil ideal</th><th>Melhor uso</th><th>Ponto de atenção</th></tr></thead><tbody><tr><td>BYD Dolphin Mini</td><td>100% elétrico</td><td>Primeiro elétrico, uso urbano</td><td>Cidade, deslocamentos diários</td><td>Espaço e planejamento de viagem</td></tr><tr><td>BYD Dolphin</td><td>100% elétrico</td><td>Uso urbano com mais versatilidade</td><td>Cidade e rotina familiar leve</td><td>Confirmar autonomia e versão</td></tr><tr><td>BYD Dolphin Plus</td><td>100% elétrico</td><td>Quem quer mais desempenho e equipamentos</td><td>Cidade e uso misto</td><td>Avaliar custo total</td></tr><tr><td>BYD Yuan Pro</td><td>100% elétrico</td><td>Quem quer SUV compacto</td><td>Uso diário com posição elevada</td><td>Confirmar espaço e pacote</td></tr><tr><td>BYD Yuan Plus</td><td>100% elétrico</td><td>Família e quem busca SUV mais amplo</td><td>Cidade e deslocamentos maiores</td><td>Planejamento em estrada</td></tr><tr><td>BYD Song Pro DM-i</td><td>Híbrido plug-in</td><td>Transição suave para eletrificação</td><td>Cidade com viagens ocasionais</td><td>Vale mais quando é carregado</td></tr><tr><td>BYD Song Plus DM-i</td><td>Híbrido plug-in</td><td>Família que quer economia e flexibilidade</td><td>Uso misto urbano/rodoviário</td><td>Confirmar versão e equipamentos</td></tr><tr><td>BYD King DM-i</td><td>Híbrido plug-in</td><td>Quem prefere sedã</td><td>Uso urbano e rodoviário</td><td>Entender bem a lógica do PHEV</td></tr><tr><td>BYD Seal</td><td>100% elétrico</td><td>Quem busca proposta premium</td><td>Uso urbano e rodoviário planejado</td><td>Custo de compra e seguro</td></tr></tbody></table></div>
+<p>Sempre confirme <strong>versões, preços, autonomia, garantia e equipamentos</strong> no site oficial da BYD Brasil ou na concessionária.</p>
+<hr class="section-break">
+<h1 id="capitulo-11-eletrico-ou-hibrido-qual-escolher">Capítulo 11 — Elétrico ou híbrido: qual escolher?</h1>
+<p>Essa escolha não deve ser feita com base em entusiasmo. Deve ser feita com base em encaixe com a sua vida.</p>
+<h2 id="escolha-um-100-eletrico-se">Escolha um 100% elétrico se:</h2>
+<ul><li>Você roda mais na cidade.</li><li>Tem onde carregar.</li><li>Quer reduzir gasto com combustível.</li><li>Gosta de tecnologia.</li><li>Planeja bem suas viagens.</li></ul>
+<h2 id="escolha-um-hibrido-plug-in-se">Escolha um híbrido plug-in se:</h2>
+<ul><li>Você quer economia, mas ainda quer flexibilidade do combustível.</li><li>Você viaja bastante.</li><li>Você ainda tem receio de depender apenas de recarga.</li><li>Você quer transição mais suave.</li></ul>
+<h2 id="talvez-nao-seja-o-momento-ideal-se">Talvez não seja o momento ideal se:</h2>
+<ul><li>Você não tem onde carregar.</li><li>Você roda muito em locais sem infraestrutura.</li><li>O seguro ficou caro demais.</li><li>O preço do carro compromete seu orçamento.</li><li>Você não quer mudar nenhum hábito de uso.</li></ul>
+<p>O melhor ponto de partida é perguntar:</p>
+<p>"Quero mudar de tecnologia ou quero resolver um problema da minha rotina?"</p>
+<p>Se a resposta for só curiosidade, a compra pode ser precipitada. Se a resposta estiver ligada a uso, custo, conforto e perfil real, a decisão fica muito melhor.</p>
+<hr class="section-break">
+<h1 id="capitulo-12-comprar-eletrico-usado-ou-seminovo-cuidados-essenciais">Capítulo 12 — Comprar elétrico usado ou seminovo: cuidados essenciais</h1>
+<p>Comprar usado pode ser excelente negócio. Mas em carro eletrificado, pesquisar bem é ainda mais importante.</p>
+<h2 id="checklist-de-analise">Checklist de análise</h2>
+<ul><li>Histórico de revisões</li><li>Garantia da bateria</li><li>Estado dos pneus</li><li>Cabos e carregadores inclusos</li><li>Manual e chave reserva</li><li>Procedência</li><li>Quilometragem</li><li>Laudo cautelar</li><li>Histórico de colisão</li><li>Sinais de alagamento</li><li>Funcionamento da recarga</li><li>Saúde da bateria, quando possível</li><li>Test drive</li><li>Consulta em concessionária ou oficina especializada</li></ul>
+<h2 id="o-que-observar-alem-do-preco">O que observar além do preço</h2>
+<p>Preço baixo sozinho não fecha conta. Um usado eletrificado precisa transmitir confiança.</p>
+<p>Verifique:</p>
+<ul><li>se as revisões foram feitas dentro do previsto</li><li>se há documentação organizada</li><li>se os acessórios originais acompanham o carro</li><li>se a garantia ainda existe e em quais termos</li><li>se a recarga funciona normalmente</li></ul>
+<h2 id="test-drive-e-indispensavel">Test drive é indispensável</h2>
+<p>No test drive, preste atenção em:</p>
+<ul><li>funcionamento suave</li><li>mensagens no painel</li><li>comportamento de frenagem regenerativa</li><li>estado geral do acabamento</li><li>resposta de recarga, quando possível testar</li></ul>
+<blockquote><p>Não compre apenas pelo preço. Em carro eletrificado, procedência e garantia são fundamentais.</p></blockquote>
+<hr class="section-break">
+<h1 id="capitulo-13-checklist-final-antes-de-comprar">Capítulo 13 — Checklist final antes de comprar</h1>
+<p>Antes de fechar negócio, responda com honestidade:</p>
+<ul><li>Qual será meu uso principal?</li><li>Rodo mais na cidade ou estrada?</li><li>Tenho onde carregar?</li><li>Moro em casa ou apartamento?</li><li>Quanto gasto hoje com combustível?</li><li>Quanto vou gastar com energia?</li><li>Fiz cotação de seguro?</li><li>Pesquisei IPVA?</li><li>Tenho concessionária ou assistência próxima?</li><li>Entendi o tipo de carro que estou comprando?</li><li>Comparei elétrico, híbrido e flex?</li><li>Fiz test drive?</li><li>Li o manual ou informações oficiais?</li><li>Avaliei revenda e garantia?</li><li>O carro cabe no meu orçamento real?</li></ul>
+<p>Se você não consegue responder metade dessas perguntas com segurança, ainda não está na hora de comprar. Primeiro esclareça, depois decida.</p>
+<hr class="section-break">
+<h1 id="conclusao">Conclusão</h1>
+<p>Carro elétrico não é para todo mundo. E tudo bem.</p>
+<p>O objetivo deste guia nunca foi empurrar uma decisão. Foi ajudar você a trocar medo por clareza.</p>
+<p>Para algumas pessoas, um elétrico vai ser uma excelente escolha: confortável, silencioso, econômico no uso diário e muito bem alinhado à rotina urbana.</p>
+<p>Para outras, um híbrido plug-in pode fazer mais sentido porque oferece uma transição mais suave.</p>
+<p>E em alguns casos, manter um carro flex por enquanto ainda pode ser a decisão mais inteligente.</p>
+<p>O ponto principal é este: <strong>conhecimento evita arrependimento</strong>.</p>
+<p>O melhor carro não é o mais tecnológico, nem o mais comentado na internet. O melhor carro é o que combina com a sua vida, o seu orçamento e a sua forma real de usar o veículo.</p>
+<p>Antes de comprar, calcule, compare, faça test drive e confirme as informações oficiais.</p>
+<p><strong>Agora que você entende os principais pontos sobre carros elétricos e híbridos, está muito mais preparado para escolher com segurança.</strong></p>
+<hr class="section-break">
+<h1 id="bonus-1-planilha-de-calculo-de-economia">Bônus 1 — Planilha de cálculo de economia</h1>
+<p>Você pode montar uma planilha simples no Excel, Google Sheets ou outro aplicativo com os campos abaixo.</p>
+<h2 id="para-carro-a-combustao">Para carro a combustão</h2>
+<ul><li>Preço da gasolina</li><li>Preço do etanol</li><li>Consumo na cidade</li><li>Consumo na estrada</li><li>Km rodados por mês</li><li>Gasto mensal estimado</li></ul>
+<h2 id="para-carro-eletrico">Para carro elétrico</h2>
+<ul><li>Preço do kWh</li><li>Consumo médio em kWh/100 km</li><li>Km rodados por mês</li><li>Custo mensal estimado</li><li>Economia mensal</li><li>Economia anual</li></ul>
+<h2 id="exemplo-de-tabela">Exemplo de tabela</h2>
+<div class="table-wrap"><table><thead><tr><th>Campo</th><th>Exemplo</th></tr></thead><tbody><tr><td>Preço da gasolina</td><td>R$ 6,00</td></tr><tr><td>Consumo do carro a combustão</td><td>10 km/l</td></tr><tr><td>Km por mês</td><td>1.500 km</td></tr><tr><td>Gasto mensal com combustível</td><td>R$ 900,00</td></tr><tr><td>Preço do kWh</td><td>R$ 1,00</td></tr><tr><td>Consumo do elétrico</td><td>15 kWh/100 km</td></tr><tr><td>Custo mensal com energia</td><td>R$ 225,00</td></tr><tr><td>Economia mensal estimada</td><td>R$ 675,00</td></tr><tr><td>Economia anual estimada</td><td>R$ 8.100,00</td></tr></tbody></table></div>
+<p>Lembrete: é apenas uma simulação ilustrativa. Troque pelos números da sua realidade.</p>
+<hr class="section-break">
+<h1 id="bonus-2-glossario-do-carro-eletrico">Bônus 2 — Glossário do carro elétrico</h1>
+<h2 id="bev">BEV</h2>
+<p>Veículo 100% elétrico, movido apenas por motor elétrico e bateria de tração.</p>
+<h2 id="hev">HEV</h2>
+<p>Híbrido convencional. Combina motor a combustão e motor elétrico, normalmente sem recarga externa.</p>
+<h2 id="phev">PHEV</h2>
+<p>Híbrido plug-in. Pode ser carregado na tomada e roda parte do uso em modo elétrico.</p>
+<h2 id="kwh">kWh</h2>
+<p>Unidade de energia. É muito usada para falar da capacidade da bateria e do consumo de energia.</p>
+<h2 id="kw">kW</h2>
+<p>Unidade de potência. Aparece em dados de motor e velocidade de carregamento.</p>
+<h2 id="wallbox">Wallbox</h2>
+<p>Carregador dedicado instalado em casa, empresa ou outro local fixo.</p>
+<h2 id="autonomia">Autonomia</h2>
+<p>Distância estimada que o carro consegue percorrer com a carga disponível ou com o tanque e a bateria, conforme o tipo de veículo.</p>
+<h2 id="regeneracao">Regeneração</h2>
+<p>Recuperação de parte da energia nas desacelerações e frenagens.</p>
+<h2 id="bateria-de-tracao">Bateria de tração</h2>
+<p>Bateria principal responsável por mover o veículo eletrificado.</p>
+<h2 id="bateria-12v">Bateria 12V</h2>
+<p>Bateria auxiliar usada em sistemas eletrônicos e funções de apoio.</p>
+<h2 id="carregamento-ac">Carregamento AC</h2>
+<p>Recarga em corrente alternada, comum em carregadores residenciais e parte da infraestrutura pública.</p>
+<h2 id="carregamento-dc">Carregamento DC</h2>
+<p>Recarga em corrente contínua, normalmente associada a carregamento mais rápido.</p>
+<h2 id="conector">Conector</h2>
+<p>Padrão físico de encaixe usado para carregar o veículo.</p>
+<h2 id="eletroposto">Eletroposto</h2>
+<p>Local com infraestrutura de recarga para veículos elétricos.</p>
+<h2 id="estado-de-carga">Estado de carga</h2>
+<p>Percentual de energia disponível na bateria. Em inglês, costuma aparecer como SOC.</p>
+<h2 id="degradacao-de-bateria">Degradação de bateria</h2>
+<p>Perda gradual de capacidade ao longo do tempo e do uso.</p>
+<h2 id="torque-instantaneo">Torque instantâneo</h2>
+<p>Característica comum em elétricos, que entregam força rapidamente ao acelerar.</p>
+<h2 id="modo-eco">Modo Eco</h2>
+<p>Modo de condução voltado a favorecer eficiência e economia.</p>
+<h2 id="frenagem-regenerativa">Frenagem regenerativa</h2>
+<p>Sistema que ajuda a recuperar energia quando o carro desacelera.</p>
+<hr class="section-break">
+<h1 id="bonus-3-checklist-imprimivel">Bônus 3 — Checklist imprimível</h1>
+<ul><li>[ ] Simulei o seguro</li><li>[ ] Consultei IPVA</li><li>[ ] Verifiquei onde vou carregar</li><li>[ ] Conversei com o condomínio, se aplicável</li><li>[ ] Fiz test drive</li><li>[ ] Comparei versões</li><li>[ ] Entendi a autonomia real</li><li>[ ] Analisei custo por km</li><li>[ ] Verifiquei garantia da bateria</li><li>[ ] Pesquisei concessionária próxima</li><li>[ ] Avaliei revenda</li><li>[ ] Li informações oficiais</li><li>[ ] O carro cabe no meu orçamento</li></ul>
+<hr class="section-break">
+<h1 id="referencias-consultadas">Referências consultadas</h1>
+<p>Estas referências foram consultadas em maio de 2026 para validação geral do conteúdo. Como sites e portfólios mudam, confirme novamente antes de comprar:</p>
+<ul><li>BYD Brasil: https://www.byd.com/br/</li><li>Modelos BYD Brasil: https://www.byd.com/br/</li><li>Manual do Proprietário BYD Brasil: https://www.byd.com/br/manual-proprietario</li><li>Perguntas Frequentes BYD Brasil: https://www.byd.com/br/perguntas-frequentes</li><li>Bateria Blade BYD Brasil: https://www.byd.com/content/byd-site/br/bateria-blade</li><li>ABVE: https://abve.org.br/</li><li>ABVE, balanço de 2025 publicado em 6 de janeiro de 2026: https://abve.org.br/eletrificados-crescem-dez-vezes-mais-do-que-conjunto-do-mercado-em-2025-com-224-mil-veiculos-vendidos/</li></ul>
+<hr class="section-break">
+<h1 id="sugestao-de-identidade-visual-para-a-diagramacao">Sugestão de identidade visual para a diagramação</h1>
+<ul><li><strong>Cores:</strong> azul escuro, verde elétrico, branco e cinza claro</li><li><strong>Estilo:</strong> moderno, limpo, tecnológico e confiável</li><li><strong>Elementos visuais:</strong> ícones de bateria, tomada, raio, carro, estrada, economia e checklist</li><li><strong>Layout:</strong> páginas com bastante respiro, cards explicativos e tabelas comparativas</li></ul>
+    </main>
+    <aside class="fine-print">
+      Este PDF foi diagramado a partir de um guia independente, com finalidade educativa. Versões, preços, autonomia, garantia, equipamentos, disponibilidade e regras de mercado podem mudar ao longo do tempo e devem ser confirmados nos canais oficiais antes da compra.
+    </aside>
+  </body>
+</html>
