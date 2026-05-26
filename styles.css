@@ -130,9 +130,9 @@ a {
 }
 
 .hero__lead {
-  max-width: 640px;
-  margin: 0 0 14px;
-  font-size: clamp(1.18rem, 2vw, 1.5rem);
+  max-width: 560px;
+  margin: 0 0 24px;
+  font-size: clamp(1.18rem, 2vw, 1.42rem);
   color: rgba(255, 255, 255, 0.92);
 }
 
@@ -226,7 +226,12 @@ a {
   border-radius: 34px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  background: #0b1827;
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.08), transparent 24%),
+    #0b1827;
+  transform: perspective(1400px) rotateY(-9deg) rotateX(1deg);
+  transform-origin: center left;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .book-card__image,
@@ -253,6 +258,43 @@ a {
   right: 24px;
   bottom: 24px;
   z-index: 1;
+}
+
+.book-card::before {
+  content: "";
+  position: absolute;
+  inset: 14px auto 14px 100%;
+  width: 18px;
+  border-radius: 0 18px 18px 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.03)),
+    linear-gradient(180deg, #17314a, #091523);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+.book-card::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: -4%;
+  bottom: -28px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.32);
+  filter: blur(18px);
+  z-index: 0;
+}
+
+.book-card__shine {
+  position: absolute;
+  top: -10%;
+  right: -18%;
+  width: 44%;
+  height: 72%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0));
+  transform: rotate(22deg);
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 .book-card__mini-title {
@@ -289,6 +331,7 @@ a {
   border-radius: var(--radius-sm);
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .stats__item strong {
@@ -308,7 +351,36 @@ a {
 }
 
 .section--problem {
-  padding-top: 70px;
+  position: relative;
+  z-index: 2;
+  margin-top: -38px;
+  padding-top: 0;
+}
+
+.impact-panel {
+  padding: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 34px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(247, 251, 253, 0.94));
+  box-shadow: 0 28px 80px rgba(7, 24, 39, 0.12);
+  backdrop-filter: blur(14px);
+}
+
+.impact-panel__intro {
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+.impact-panel__intro h2 {
+  margin-bottom: 12px;
+}
+
+.impact-panel__intro p {
+  margin: 0;
+  max-width: 660px;
+  color: var(--muted);
+  font-size: 1.08rem;
 }
 
 .section--accent {
@@ -386,6 +458,23 @@ a {
 
 .card {
   padding: 28px;
+}
+
+.card--impact {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,252,254,0.96));
+}
+
+.card--impact::after {
+  content: "";
+  position: absolute;
+  inset: auto -24px -24px auto;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(44, 229, 140, 0.18), transparent 68%);
 }
 
 .card h3,
@@ -617,8 +706,21 @@ a {
     padding-top: 56px;
   }
 
+  .book-card {
+    transform: none;
+  }
+
+  .book-card::before {
+    display: none;
+  }
+
   .stats {
     grid-template-columns: 1fr;
+  }
+
+  .section--problem {
+    margin-top: 0;
+    padding-top: 34px;
   }
 }
 
@@ -646,6 +748,10 @@ a {
 
   .book-card {
     min-height: 460px;
+  }
+
+  .impact-panel {
+    padding: 24px;
   }
 
   .footer__inner,
